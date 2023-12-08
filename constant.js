@@ -1,4 +1,4 @@
-const MENU = [
+const MENUS = [
   { name: "red", price: 50 },
   { name: "green", price: 40 },
   { name: "blue", price: 30 },
@@ -16,7 +16,7 @@ const DOUBLE_ORDER_MENU_LIST = {
 };
 
 module.exports = {
-  MENU,
+  MENUS,
   MEMBERSHIP_DISCOUNT_PERCENTAGE,
   DOUBLE_ORDER_MENU_LIST,
 };
