@@ -11,7 +11,7 @@ const MENUS = [
 const MEMBERSHIP_DISCOUNT_PERCENTAGE = 10;
 
 const DOUBLE_ORDER_MENU_LIST = {
-  menu: ["red", "purple", "orange"],
+  menus: ["orange", "pink", "green"],
   discountPercentage: 5,
 };
 
