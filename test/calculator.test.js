@@ -41,14 +41,57 @@ describe("calculate", () => {
         expectedPrice: 456,
       },
     ])(
-      "Should accurately calculate the price when user makes an order",
+      "Should accurately calculate the price when none-member user makes an order",
       ({ menu, expectedPrice }) => {
         expect(calculate(menu, false)).toBe(expectedPrice);
       }
     );
   });
 
-  // describe('Member order', () => {
-
-  // });
+  describe("Member order", () => {
+    test.each([
+      { menu: ["red", "green"], expectedPrice: 81 },
+      { menu: ["green", "yellow"], expectedPrice: 81 },
+      {
+        menu: ["red", "green", "orange", "pink"],
+        expectedPrice: 261,
+      },
+      {
+        menu: ["red", "green", "blue", "yellow", "pink", "purple", "orange"],
+        expectedPrice: 414,
+      },
+      { menu: ["red", "red"], expectedPrice: 90 },
+      { menu: ["blue", "blue"], expectedPrice: 54 },
+      { menu: ["yellow", "yellow"], expectedPrice: 90 },
+      { menu: ["orange", "orange"], expectedPrice: 205.2 },
+      { menu: ["pink", "pink"], expectedPrice: 136.8 },
+      { menu: ["green", "green"], expectedPrice: 68.4 },
+      {
+        menu: [
+          "red",
+          "green",
+          "blue",
+          "yellow",
+          "pink",
+          "purple",
+          "orange",
+          "orange",
+        ],
+        expectedPrice: 495.9,
+      },
+      {
+        menu: ["red", "green", "orange", "pink", "pink"],
+        expectedPrice: 316.35,
+      },
+      {
+        menu: ["green", "green", "orange", "orange", "pink", "pink"],
+        expectedPrice: 410.4,
+      },
+    ])(
+      "Should accurately calculate the price when member user makes an order",
+      ({ menu, expectedPrice }) => {
+        expect(calculate(menu, true)).toBe(expectedPrice);
+      }
+    );
+  });
 });

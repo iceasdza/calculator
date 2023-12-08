@@ -1,6 +1,12 @@
-const { MENUS, DOUBLE_ORDER_MENU_LIST } = require("./constant");
+const {
+  MENUS,
+  DOUBLE_ORDER_MENU_LIST,
+  MEMBERSHIP_DISCOUNT_PERCENTAGE,
+} = require("./constant");
 
 const calculate = (menus = [], isMember = false) => {
+  let totalPrice = 0;
+
   const duplicateMenu = menus.filter(
     (menu, index) => menus.indexOf(menu) !== index
   );
@@ -9,17 +15,24 @@ const calculate = (menus = [], isMember = false) => {
     DOUBLE_ORDER_MENU_LIST.menus.includes(menu)
   );
 
-  const totalPrice = sumPrice(menus);
+  totalPrice = sumPrice(menus);
 
-  if (shoudDoubleMenuPromotionApplied) return addDiscountForDoubleOrder(totalPrice);
+  if (shoudDoubleMenuPromotionApplied) {
+    totalPrice = addDiscountToOrder(
+      totalPrice,
+      DOUBLE_ORDER_MENU_LIST.discountPercentage
+    );
+  }
+
+  if (isMember) {
+    totalPrice = addDiscountToOrder(totalPrice, MEMBERSHIP_DISCOUNT_PERCENTAGE);
+  }
 
   return totalPrice;
 };
 
-const addDiscountForDoubleOrder = (totalPrice) => {
-  return (
-    totalPrice - (totalPrice / 100) * DOUBLE_ORDER_MENU_LIST.discountPercentage
-  );
+const addDiscountToOrder = (totalPrice, percentage) => {
+  return totalPrice - (totalPrice / 100) * percentage;
 };
 
 const sumPrice = (menus = []) => {
