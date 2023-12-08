@@ -1,5 +1,19 @@
-const calculator = (menu = [], isMember = false) => {
-  return 0;
+const { MENU } = require("./constant");
+
+const calculate = (menu = [], isMember = false) => {
+  return sumPrice(menu);
 };
 
-module.exports = calculator;
+const sumPrice = (menu = []) => {
+  return menu.reduce((acc, current) => acc + menuPriceMapper(current), 0);
+};
+
+const menuPriceMapper = (menu) => {
+  const result =  MENU.find((menuData) => menuData.name === menu).price;
+  return result
+};
+
+module.exports = {
+  calculate,
+  sumPrice,
+};
