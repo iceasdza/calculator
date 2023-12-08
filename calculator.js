@@ -46,5 +46,4 @@ const menuPriceMapper = (menu) => {
 
 module.exports = {
   calculate,
-  sumPrice,
 };
