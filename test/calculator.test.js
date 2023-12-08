@@ -94,4 +94,23 @@ describe("calculate", () => {
       }
     );
   });
+
+  describe("Unexpected order", () => {
+    test("Should return error when menus are not provided", () => {
+      expect(() => {
+        calculate([], false);
+      }).toThrow("Menu is not provided");
+    });
+    test("Should return error when type is not correct", () => {
+      expect(() => {
+        calculate(null, "false");
+      }).toThrow("Invalid variable type");
+    });
+
+    test("Should return error when menu is not exist in menu list", () => {
+      expect(() => {
+        calculate(["pink", "grey"], true);
+      }).toThrow("Menu is not match");
+    });
+  });
 });

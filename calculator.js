@@ -5,6 +5,8 @@ const {
 } = require("./constant");
 
 const calculate = (menus = [], isMember = false) => {
+  validator(menus, isMember);
+
   let totalPrice = 0;
 
   const duplicateMenu = menus.filter(
@@ -31,6 +33,16 @@ const calculate = (menus = [], isMember = false) => {
   return totalPrice;
 };
 
+const validator = (menu, isMember) => {
+  if (!Array.isArray(menu) || typeof isMember !== "boolean") {
+    throw "Invalid variable type";
+  }
+
+  if (Array.isArray(menu) && menu.length === 0) {
+    throw "Menu is not provided";
+  }
+};
+
 const addDiscountToOrder = (totalPrice, percentage) => {
   return totalPrice - (totalPrice / 100) * percentage;
 };
@@ -40,8 +52,11 @@ const sumPrice = (menus = []) => {
 };
 
 const menuPriceMapper = (menu) => {
-  const result = MENUS.find((menuData) => menuData.name === menu).price;
-  return result;
+  const result = MENUS.find((menuData) => menuData.name === menu);
+  if (result === undefined) {
+    throw "Menu is not match";
+  }
+  return result.price;
 };
 
 module.exports = {
